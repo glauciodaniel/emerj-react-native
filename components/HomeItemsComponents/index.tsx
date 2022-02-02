@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View } from '../Themed';
 import styled from 'styled-components';
 import { Link } from '@react-navigation/native';
@@ -42,10 +42,10 @@ margin-left: 2%;
 `
 const FlatLinks = [
     {id:"0", text: "PONTOS", icon: "meusPontos.png", screen:"PointsScreen"},
-    {id:"1", text: "CURSOS", icon: "training.svg", screen:"CoursesScreen"},
-    {id:"2", text: "AÇÕES EDUCACIONAIS", icon: "training.svg", screen:"EducationalActionsScreen"},
-    {id:"3", text: "Virtual EMERJ", icon: "training.svg", screen:"VirtualEmerjScreen"},
-    {id:"4", text: "ATENDIMENTO", icon: "training.svg", screen:"AttendanceScreen"}
+    {id:"1", text: "CURSOS", icon: "cursos.png", screen:"CoursesScreen"},
+    {id:"2", text: "AÇÕES EDUCACIONAIS", icon: "acoesEducacionais.png", screen:"EducationalActionsScreen"},
+    {id:"3", text: "Virtual EMERJ", icon: "virtualEmerj.png", screen:"VirtualEmerjScreen"},
+    {id:"4", text: "ATENDIMENTO", icon: "atendimento.png", screen:"AttendanceScreen"}
 ]
 
 const ImageFlatLinks = styled.Image`
@@ -65,7 +65,7 @@ const LinkFlat = styled.Button`
 
 `
 
-const ButtonCustom = styled.View`
+const ButtonCustom = styled.TouchableOpacity`
 background: #c0ccda;
 border-bottom-width: 10px;
 border-bottom-color: #b8977e;
@@ -73,23 +73,27 @@ flex-direction: row;
 width: 100%;
 align-items: center;
 `
-function ButtonLink(props:any){
-    const path = ``;
 
-    return (
-
-   
-            <ButtonCustom>
+const Item = ({item, onPress}) => (  
+            <ButtonCustom onPress={onPress}>
                 <ImageFlatLinks source={require('../../assets/images/meusPontos.png')} />
-                <TextFlatLinks>texto{props.text}</TextFlatLinks>
+                <TextFlatLinks>{item.text}</TextFlatLinks>
             </ButtonCustom>
-
-    )
-
-}
-
+);
 
 export default function HomeItemsComponents (){
+    const [selectedId, setSelectedId] = useState(null);
+
+ const renderItem = ({item}:any)=>{
+     return(
+         <Item
+         item={item}
+         onPress={() => setSelectedId(item.id)}
+        />
+     )
+     
+ }
+    
     return (
         <>
             <BackgroundContainer>
@@ -97,8 +101,9 @@ export default function HomeItemsComponents (){
                         <FlatListItems>
                             <FlatList
                             data={FlatLinks}
-                            renderItem={ButtonLink}
+                            renderItem={renderItem}
                             keyExtractor={(item) => item.id}
+                            extraData={selectedId}
                              />
 
 
