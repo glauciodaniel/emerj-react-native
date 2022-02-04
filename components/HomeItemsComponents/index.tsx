@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Text, View } from '../Themed';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { Link } from '@react-navigation/native';
-import { FlatList, Image } from 'react-native';
+import { FlatList, GestureResponderEvent, Image } from 'react-native';
 import Card from '../Card';
 
 const BackgroundContainer = styled.View`
@@ -73,8 +73,18 @@ flex-direction: row;
 width: 100%;
 align-items: center;
 `
+interface IFlatItems {
+    id: string;
+    text: string;
+    icon: string;
+    screen: string;
+}
 
-const Item = ({item, onPress}) => (  
+
+const Item = ({item, onPress}:{
+    item: IFlatItems,
+    onPress: (event: GestureResponderEvent) => void
+    }) => (  
             <ButtonCustom onPress={onPress}>
                 <ImageFlatLinks source={require('../../assets/images/meusPontos.png')} />
                 <TextFlatLinks>{item.text}</TextFlatLinks>
@@ -82,13 +92,13 @@ const Item = ({item, onPress}) => (
 );
 
 export default function HomeItemsComponents (){
-    const [selectedId, setSelectedId] = useState(null);
+    const [selectedId, setSelectedId] = useState<number|null>(null);
 
- const renderItem = ({item}:any)=>{
+ const renderItem = ({item}:{item:IFlatItems})=>{
      return(
          <Item
          item={item}
-         onPress={() => setSelectedId(item.id)}
+         onPress={() => setSelectedId(Number(item.id))}
         />
      )
      

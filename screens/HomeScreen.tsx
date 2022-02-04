@@ -1,6 +1,6 @@
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import HomeItemsComponents from '../components/HomeItemsComponents';
 import { Button } from 'react-native';
 import biometricAuth from '../utils/local-authentication';
