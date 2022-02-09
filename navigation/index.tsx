@@ -23,6 +23,7 @@ import UserScreen from '../screens/UserScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import HomeScreen from '../screens/HomeScreen';
+import Chat from '../screens/Chat';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -99,6 +100,14 @@ function BottomTabNavigator() {
         options={({ navigation }: RootTabScreenProps<'Login'>) => ({
           title: 'Login',
           tabBarIcon: ({ color }) => <TabBarIcon name="sign-in" color={color} />,
+        })}
+      />
+      <BottomTab.Screen
+        name="Chat"
+        component={Chat}
+        options={({ navigation }: RootTabScreenProps<'Chat'>) => ({
+          title: 'Chat',
+          tabBarIcon: ({ color }) => <TabBarIcon name="anchor" color={color} />,
         })}
       />
 
